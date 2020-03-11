@@ -2,6 +2,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.sql.Array;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,31 +13,49 @@ import java.util.Map;
 public class Hashtable {
 
 
-    private Map<Integer,String> musics;
-    //key, music_name, active, next, list
-    public Hashtable() throws IOException {
-        musics = new HashMap<Integer,String>();
-        this.mountList();
+    private Map<Integer, Node> musics;
 
+    public Hashtable(){
+        this.musics = new HashMap<Integer,Node>();
     }
 
+    //key, music_name, active, next, list
 
-    public static void mountList() throws IOException {
+
+
+
+
+    void mountList() throws IOException {
         Path file = Paths.get("..\\Chord\\src\\files\\musics");
         List<String> musicsFile = Files.readAllLines(file);
 
         int i=0;
         for(String m: musicsFile){
+            Node nd = new Node();
+            nd.setKey(i);
+            nd.setMusic(m+"");
+
+            if(i == musicsFile.size()){
+                nd.setNext(0);
+            }else{
+                nd.setNext(i+1);
+            }
             i++;
-            musics.put(i,m);
+            musics.put(nd.getKey(), nd );
         }
 
-        System.out.println(musics);
+        System.out.println(musics.get(1).getMusic() );
+
+
     }
 
 
     public static void main(String[] args) throws IOException {
-          mountList();
+      Hashtable hash = new Hashtable();
+
+      hash.mountList();
+
+
 //        Node node = new Node();
 //
 //        Map<Integer, String> musics = node.getMusics();
@@ -58,3 +78,4 @@ public class Hashtable {
 
 
 }
+
