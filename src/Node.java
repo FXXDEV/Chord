@@ -1,10 +1,14 @@
+import java.util.ArrayList;
 import java.util.Map;
 
 public class Node {
-    int key, next;
-    boolean active;
-    String music;
-    Map<Integer,String> musics;
+    private int key, next;
+    private Boolean active;
+    private String music;
+    private ArrayList<Node> musics;
+
+    
+  
 
     public int getKey() {
         return key;
@@ -26,7 +30,23 @@ public class Node {
         return active;
     }
 
-    public void setActive(boolean active) {
+    public Boolean getActive() {
+		return active;
+	}
+
+	public void setActive(Boolean active) {
+		this.active = active;
+	}
+
+	public void setMusics(ArrayList<Node> musics) {
+		this.musics = musics;
+	}
+
+	public ArrayList<Node> getMusics() {
+		return musics;
+	}
+
+	public void setActive(boolean active) {
         this.active = active;
     }
 
@@ -38,11 +58,5 @@ public class Node {
         this.music = music;
     }
 
-    public Map<Integer, String> getMusics() {
-        return musics;
-    }
-
-    public void setMusics(Map<Integer, String> musics) {
-        this.musics = musics;
-    }
+    
 }
