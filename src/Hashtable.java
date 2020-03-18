@@ -15,6 +15,7 @@ import java.util.concurrent.ThreadLocalRandom;
 import javax.swing.JOptionPane;
 
 
+
 public class Hashtable {
  
     Random rand = new Random();
@@ -28,12 +29,12 @@ public class Hashtable {
 
     private Map<Integer, Node> musics;
 
-    public Hashtable(){
-        this.musics = new HashMap<Integer,Node>();
+    public Hashtable() throws IOException{
+        ring = new HashMap<Integer,Node>();
+      
     }
 
-    
-    
+
     static void sweepHash(){
     	activeNodes.clear();
         ArrayList<Node> previousNodes = new ArrayList<>();
@@ -83,6 +84,8 @@ public class Hashtable {
             node.setActive(false);
             i++;
             ring.put(node.getKey(), node);
+            
+            
         }
 
     }
@@ -125,7 +128,8 @@ public class Hashtable {
       PrimitiveIterator.OfInt it = ThreadLocalRandom.current().ints(0, arrayList.size()-1).distinct().iterator();
       
       
-      for (int i=0; i<8; i++){
+      
+      for (int i=0; i < 8; i++){
           int number = it.next();
           ring.get(number).setActive(true);
           System.out.println(("Active node: " + number));
