@@ -12,11 +12,7 @@ import java.util.PrimitiveIterator;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
-import com.LerArquivo;
-import com.No;
-
-
-
+import javax.swing.JOptionPane;
 
 
 public class Hashtable {
@@ -122,11 +118,74 @@ public class Hashtable {
     }
 
     public static void main(String[] args) throws IOException {
+      
       Hashtable hash = new Hashtable();
+      String key = "0";
 
-     
-    
+      PrimitiveIterator.OfInt it = ThreadLocalRandom.current().ints(0, arrayList.size()-1).distinct().iterator();
+      
+      
+      for (int i=0; i<8; i++){
+          int number = it.next();
+          ring.get(number).setActive(true);
+          System.out.println(("Active node: " + number));
+      }
+      
+      nodeStatus();
+      sweepHash();
 
+      
+      for(;;) {
+    	  if (key.equals("1")) {
+              String aux = JOptionPane.showInputDialog(null, "Type a node's key to activateor type 'x' to return to main menu\n" + inactives, "Insertion", JOptionPane.QUESTION_MESSAGE);
+              if(aux == null || aux.isEmpty()){
+                  JOptionPane.showMessageDialog(null,"Type a value before continue!");
+                  key = "0";
+              }else if(aux.equalsIgnoreCase("x")) {
+                  key = "0";
+              }else {
+                  int value = Integer.parseInt(aux);
+                  System.out.println(value);
+                  if (value < ring.size() && !(ring.get(value).getActive())) {
+                      ring.get(value).setActive(true);
+                      sweepHash();
+                      nodeStatus();
+                  }
+              }
+          } else if (key.equals("2")) {
+              String aux = JOptionPane.showInputDialog(null, "Type a node key to turn off or type 'x'  to return to main menu\n" + actives, "Remove", JOptionPane.QUESTION_MESSAGE);
+              if(aux == null || aux.isEmpty()){
+                  JOptionPane.showMessageDialog(null,"Type a value before continue!");
+                  key = "0";
+              }else if(aux.equalsIgnoreCase("x")) {
+                  key = "0";                 
+              }else{
+                  int value = Integer.parseInt(aux);
+                  System.out.println(value);
+                  if (value < ring.size() && ring.get(value).getActive()) {
+                      ring.get(value).setActive(false);
+                      sweepHash();
+                      nodeStatus();
+                  }
+              }
+          } else if (key.equals("3")) {
+              String musica = JOptionPane.showInputDialog(null, "Choose a music: ");
+              if(musica.isEmpty() || musica == null){
+                  JOptionPane.showMessageDialog(null,"Type a value before continue!");
+                  key = "0";
+              }else {
+                  JOptionPane.showMessageDialog(null, search(musica));
+                  key = "0";
+              }
+          }else{
+        	  key = JOptionPane.showInputDialog("1 - Activate node \n" + "2 - Desactivate node\n" + "3 - Search music");
+              if(key == null){
+                  break;
+              }
+          }
+    	  
+      }  
 
+    }
 }
 
